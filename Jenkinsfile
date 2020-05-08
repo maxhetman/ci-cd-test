@@ -1,30 +1,29 @@
 pipeline {
- agent any
- stages {
-  stage('Checkout') {
-   steps {
-    git credentialsId: 'userId', url: 'https://github.com/NeelBhatt/SampleCliApp', branch: 'master'
-   }
+  agent any
+  stages {
+    stage('Restore PACKAGES') {
+      steps {
+        bat 'dotnet restore'
+      }
+    }
+
+    stage('Clean') {
+      steps {
+        bat 'dotnet clean'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        bat 'dotnet build --configuration Release'
+      }
+    }
+
+    stage('Publish') {
+      steps {
+        bat 'dotnet publish -c Release'
+      }
+    }
+
   }
-  stage('Restore PACKAGES') {
-   steps {
-    bat "dotnet restore --configfile NuGet.Config"
-   }
-  }
-  stage('Clean') {
-   steps {
-    bat 'dotnet clean'
-   }
-  }
-  stage('Build') {
-   steps {
-    bat 'dotnet build --configuration Release'
-   }
-  }
-  stage('Publish') {
-   steps {
-    bat 'dotnet publish -c Release'
-   }
-  }
- }
 }
