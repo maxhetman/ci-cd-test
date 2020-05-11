@@ -1,0 +1,7 @@
+language: csharp
+dist: trusty
+mono: none
+install:
+- dotnet restore
+script:
+- dotnet publish -c Release
