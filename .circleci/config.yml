@@ -9,4 +9,7 @@
     
      steps:
        - checkout
-       - run: dotnet publish -c Release
+       - run: dotnet restore
+       - run: dotnet build
+       - run: dotnet test
+       - run: dotnet publish -c Release       
